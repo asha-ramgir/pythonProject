@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{category.title}} Questions{% endblock %}
+{% block content %}
+<h2 class="my-4">{{category.title}}</h2>
+<div class="card my-4 border-dark shadow">
+    <h4 class="card-header border-dark">{{question.question}}?</h4>
+    <form method="post" action="{% url 'submit_answer' quiz_attempt_id category.id question.id random_question_ids %}">
+        {% csrf_token %}
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tr>
+                    <td><input class="answer" value="{{question.option_1}}" id="option_1" name="answer" type="radio"/></td>
+                    <th><label for="option_1">{{question.option_1}}</label></th>
+                </tr>
+                <tr>
+                    <td><input class="answer" value="{{question.option_2}}" id="option_2" name="answer" type="radio"/></td>
+                    <th><label for="option_2">{{question.option_2}}</label></th>
+                </tr>
+                <tr>
+                    <td><input class="answer" value="{{question.option_3}}" id="option_3" name="answer" type="radio"/></td>
+                    <th><label for="option_3">{{question.option_3}}</label></th>
+                </tr>
+                <tr>
+                    <td><input class="answer" value="{{question.option_4}}" id="option_4" name="answer" type="radio"/></td>
+                    <th><label for="option_4">{{question.option_4}}</label></th>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card-footer">
+            <input type="submit" name="skip" value="Skip" class="btn warning skipbtn">
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary submitbtn">
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="{% static 'jquery-3.6.0.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".submitbtn").on('click', function(){
+            var _checkedAns = $("input[name='answer']:checked").val();
+            if(_checkedAns == undefined){
+                alert('Please select one option');
+                return false;
+            }
+
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{category.title}} Scores{% endblock %}
+{% block content %}
+<h2 class="my-4">Quizzes attempted so far..</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Attempt Date</th>
+            <th>Category</th>
+            <th>Score (out of 5)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in result %}
+        <tr>
+            <td>{{row.attempt_date}}</td>
+            <td>{{row.category}}</td>
+            <td>{{row.score}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="my-4">Score Detail</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Average Score</th>
+        <td>{{average_score}}</td>
+    </tr>
+    <tr>
+        <th>Highest Score</th>
+        <td>{{highest_score}}</td>
+    </tr>
+    <tr>
+        <th>Lowest Score</th>
+        <td>{{lowest_score}}</td>
+    </tr>
+</table>
+
+{% endblock %}

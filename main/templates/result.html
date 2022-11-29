@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{category.title}} Result{% endblock %}
+{% block content %}
+<h2 class="my-4">Result</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Question</th>
+            <th>Submitted Answer</th>
+            <th>Correct Answer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in result %}
+        <tr>
+            <td>{{row.question}}</td>
+            <td>{{row.submitted_answer}}</td>
+            <td>{{row.question.right_option}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="my-4">Result Detail</h2>
+<table class="table table-bordered">
+    <tr>
+        <th>Score</th>
+        <td>{{correct_answers}}</td>
+    </tr>
+    <tr>
+        <th>Percentage</th>
+        <td>{{percentage}}%</td>
+    </tr>
+    <tr>
+        <th>Result</th>
+        <td>{{display_text}}</td>
+    </tr>
+</table>
+{% if correct_answers < 3 %}
+
+<a href="{% url 'topic_questions' topic_id %}" class="btn btn-primary">Re-attempt quiz</a>
+
+{% endif %}
+{% endblock %}
